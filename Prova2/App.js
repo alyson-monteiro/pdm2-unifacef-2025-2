@@ -11,8 +11,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Início" component={HomeScreen} />
-        <Stack.Screen name="Tarefas do Dia" component={DayList} />
-        <Stack.Screen name="Tarefas da Semana" component={WeekList} />
+        <Stack.Screen name="Compromissos do dia" component={DayList} />
+        <Stack.Screen name="Compromissos da semana" component={WeekList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

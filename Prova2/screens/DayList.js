@@ -1,55 +1,90 @@
 import React, { useCallback } from 'react';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
 
-const compromissosDia = Array.from({ length: 50 }).map((_, i) => ({
-  id: String(i),
-  titulo: `Compromisso ${i + 1}`,
-  hora: `${(8 + (i % 10)).toString().padStart(2, '0')}:${(i % 2 === 0 ? '00' : '30')}`,
-  descricao: `Atividade número ${i + 1} do dia`,
-}));
+// Dados fixos dos compromissos
+const compromissosDia = [
+  { id: '1', hora: '08h00', descricao: 'Médico' },
+  { id: '2', hora: '10h30', descricao: 'Reunião de planejamento' },
+  { id: '3', hora: '15h00', descricao: 'Saída viagem' },
+];
+
+// Função para gerar a data de hoje no formato "11/11 (ter)"
+function obterDataFormatada() {
+  const hoje = new Date();
+  const dia = hoje.getDate().toString().padStart(2, '0');
+  const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+  const diasSemana = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  const diaSemana = diasSemana[hoje.getDay()];
+  return `${dia}/${mes} (${diaSemana})`;
+}
 
 export default function DayList() {
   const renderItem = useCallback(({ item }) => (
     <View style={styles.card}>
       <Text style={styles.hora}>{item.hora}</Text>
-      <Text style={styles.titulo}>{item.titulo}</Text>
       <Text style={styles.descricao}>{item.descricao}</Text>
     </View>
   ), []);
 
   return (
-    <FlatList
-      data={compromissosDia}
-      keyExtractor={(item) => item.id}
-      renderItem={renderItem}
-      initialNumToRender={12}
-      windowSize={10}
-    />
+    <View style={styles.container}>
+      {/* Cabeçalho fixo */}
+      <Text style={styles.data}>{obterDataFormatada()}</Text>
+      <Text style={styles.subinfo}>Alyson Monteiro e Silva</Text>
+      <Text style={styles.subinfo}>Ciencia da Computação 8º Semestre</Text>
+
+      {/* Lista de compromissos */}
+      <FlatList
+        data={compromissosDia}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        initialNumToRender={10}
+        windowSize={5}
+        contentContainerStyle={styles.lista}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#f8f9fa',
-    marginVertical: 6,
-    marginHorizontal: 10,
-    padding: 12,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-  },
-  hora: {
-    color: '#007bff',
-    fontWeight: 'bold',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 40,
+    paddingHorizontal: 20,
   },
   titulo: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 4,
+    marginBottom: 15,
+  },
+  data: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  subinfo: {
+    textAlign: 'center',
+    color: '#666',
+    fontSize: 14,
+  },
+  lista: {
+    marginTop: 25,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 6,
+    paddingVertical: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  hora: {
+    width: 80,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   descricao: {
-    color: 'gray',
-    marginTop: 2,
+    fontSize: 16,
   },
 });

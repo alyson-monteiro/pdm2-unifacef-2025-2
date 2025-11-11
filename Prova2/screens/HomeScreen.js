@@ -4,15 +4,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Alyson Monteiro e Silva</Text>
-      <Text style={styles.subtitle}>Navegue para as telas:</Text>
+      <Text style={styles.title}>Agenda</Text>
+      <Text style={styles.subtitle}>Alyson Monteiro e Silva</Text>
+      <Text style={styles.subtitle}>Ciencia da Computação 8º Semestre</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Tarefas do Dia')}>
-        <Text style={styles.buttonText}>Abrir Tela das Tarefas do Dia</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Compromissos do dia')}>
+        <Text style={styles.buttonText}>Compromissos do Dia</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Tarefas da Semana')}>
-        <Text style={styles.buttonText}>Abrir Tela das Tarefas da Semana</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Compromissos da semana')}>
+        <Text style={styles.buttonText}>Compromissos da Semana</Text>
       </TouchableOpacity>
 
     </View>

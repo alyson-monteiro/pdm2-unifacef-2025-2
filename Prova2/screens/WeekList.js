@@ -1,58 +1,72 @@
-import React, { useCallback } from 'react';
-import { FlatList, Text, View, StyleSheet } from 'react-native';
-
-const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
-
-const compromissosSemana = Array.from({ length: 200 }).map((_, i) => ({
-  id: String(i),
-  dia: diasSemana[i % 7],
-  titulo: `Atividade ${i + 1}`,
-  hora: `${(7 + (i % 10)).toString().padStart(2, '0')}:${(i % 2 === 0 ? '15' : '45')}`,
-  local: `Local ${Math.floor(Math.random() * 10) + 1}`,
-}));
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 export default function WeekList() {
-  const renderItem = useCallback(({ item }) => (
-    <View style={styles.card}>
-      <Text style={styles.dia}>{item.dia}</Text>
-      <Text style={styles.titulo}>{item.titulo}</Text>
-      <Text style={styles.info}>⏰ {item.hora} | 📍 {item.local}</Text>
-    </View>
-  ), []);
-
   return (
-    <FlatList
-      data={compromissosSemana}
-      keyExtractor={(item) => item.id}
-      renderItem={renderItem}
-      initialNumToRender={15}
-      windowSize={10}
-    />
+    <ScrollView style={styles.container}>
+      <Text style={styles.subtitle}>Alyson Monteiro e Silva</Text>
+      <Text style={styles.subtitle}>Ciencia da Computação 8º Semestre</Text>
+
+      {/* Segunda-feira */}
+      <View style={styles.dayBlock}>
+        <Text style={styles.day}>Segunda-feira (10/11)</Text>
+        <Text style={styles.item}>08h30: Dentista</Text>
+        <Text style={styles.item}>16h00: Pilates</Text>
+      </View>
+
+      {/* Terça-feira */}
+      <View style={styles.dayBlock}>
+        <Text style={styles.day}>Terça-feira (11/11)</Text>
+        <Text style={styles.item}>08h00: Médico</Text>
+        <Text style={styles.item}>10h30: Reunião de planejamento</Text>
+        <Text style={styles.item}>15h00: Saída viagem</Text>
+      </View>
+
+      {/* Quarta-feira */}
+      <View style={styles.dayBlock}>
+        <Text style={styles.day}>Quarta-feira (12/11)</Text>
+        <Text style={styles.item}>09h00: Congresso</Text>
+        <Text style={styles.item}>12h30: Almoço com executivos</Text>
+        <Text style={styles.item}>20h30: Jantar de confraternização</Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#f8f9fa',
-    marginVertical: 6,
-    marginHorizontal: 10,
-    padding: 12,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  dia: {
-    color: '#28a745',
+  title: {
+    fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 5,
   },
-  titulo: {
-    fontSize: 16,
+  subtitle: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#555',
+  },
+  dayBlock: {
+    marginTop: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    paddingBottom: 10,
+  },
+  day: {
+    fontSize: 17,
     fontWeight: 'bold',
-    marginTop: 4,
+    color: '#222',
+    marginBottom: 5,
   },
-  info: {
-    color: 'gray',
-    marginTop: 2,
+  item: {
+    fontSize: 15,
+    color: '#333',
+    marginLeft: 10,
+    marginBottom: 3,
   },
 });
